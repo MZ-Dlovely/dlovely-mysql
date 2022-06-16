@@ -1,6 +1,6 @@
 {
 	"name": "dlovely-mysql",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"author": "dlovely 1556468030@qq.com",
 	"description": "connect mysql for dlovely",
 	"private": false,
