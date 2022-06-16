@@ -1,0 +1,34 @@
+{
+	"name": "dlovely-mysql",
+	"version": "2.1.1",
+	"author": "dlovely 1556468030@qq.com",
+	"description": "connect mysql for dlovely",
+	"private": false,
+	"license": "MIT",
+	"bugs": "https://github.com/MZ-Dlovely/dlovely-mysql/issues",
+	"contributors": [
+		"dlovely 1556468030@qq.com"
+	],
+	"repository": "",
+	"homepage": "https://github.com/MZ-Dlovely/dlovely-mysql",
+	"dependencies": {
+		"@types/mysql": "^2.15.21",
+		"mysql": "^2.18.1",
+		"ts-toolbelt": "^9.6.0",
+		"typescript": "^4.6.2"
+	},
+	"peerDependencies": {
+		"mysql": "^2.18.1",
+		"ts-toolbelt": "^9.6.0"
+	},
+	"devDependencies": {},
+	"scripts": {},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"keywords": [
+		"typescript",
+		"javascript",
+		"mysql",
+		"dlovely"
+	]
+}
