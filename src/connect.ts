@@ -1,13 +1,13 @@
 /*
  * @Author: Dlovely
  * @Date: 2022-03-07 16:42:09
- * @LastEditTime: 2022-06-16 17:03:02
+ * @LastEditTime: 2022-07-04 19:13:37
  * @LastEditors: Dlovely
  * @FilePath: \mysql\src\connect.ts
  * @Description: 直接连接MySQL
  */
 import { createConnection, Connection, ConnectionConfig, OkPacket } from 'mysql'
-import { conStyle, con_style } from './common'
+import { createToast } from './common'
 
 export interface MCOptions {
 	debugger?: boolean
@@ -16,9 +16,7 @@ export interface MCOptions {
 
 export class MySQLConnect {
 	private readonly _db
-	private readonly _log
-	private readonly _warn
-	private readonly _error
+	private readonly toast
 	constructor(config: ConnectionConfig, options?: MCOptions) {
 		this._db = {
 			host: 'localhost',
@@ -26,24 +24,7 @@ export class MySQLConnect {
 			connectTimeout: 30000,
 			...config,
 		}
-		if (options?.debugger) {
-			const con =
-				(
-					type: 'log' | 'warn' | 'error',
-					title: keyof typeof con_style,
-					time: keyof typeof con_style,
-				) =>
-				(...message: any[]) =>
-					console[type](
-						conStyle('[MySQL]', title),
-						conStyle(`[${new Date().toLocaleString()}]`, time),
-						...message.map(msg => conStyle(msg, 'white')),
-					)
-
-			this._log = con('log', 'green', 'blue')
-			this._warn = con('warn', 'yellow', 'cyan')
-			this._error = con('error', 'red', 'magenta')
-		} else this._log = this._warn = this._error = () => {}
+		this.toast = createToast('MySQL', options?.debugger)
 		MySQLConnect.maxReconnectTime = options?.maxReconnectTime ?? 5
 	}
 
@@ -61,80 +42,73 @@ export class MySQLConnect {
 			let err: any
 			for (let i = 0; i < max; i++) {
 				try {
-					this._log(
-						`正在连接服务器${this._db.host}:${this._db.port}${
-							this._db.database ? `@${this._db.database}` : ''
-						}`,
-					)
+					const server = `服务器${this._db.host}:${this._db.port}${
+						this._db.database ? `@${this._db.database}` : ''
+					}`
+					this.toast.log(`正在连接${server}...`)
 					this.connection = await this._connect()
-					this._log(
-						`已连接服务器${this._db.host}:${this._db.port}${
-							this._db.database ? `@${this._db.database}` : ''
-						}`,
-					)
+					this.toast.log(`已连接${server}`)
 					return this.connection
 				} catch (e) {
 					err = e
 				}
 			}
-			this._error('服务器连接失败', err.sqlMessage)
+			this.toast.error('服务器连接失败', err.sqlMessage)
 			return Promise.reject(err)
 		} else {
 			return this._connect()
 		}
 	}
 
-	query<T extends object | string>(sql: string) {
-		return new Promise<keyof T extends string ? T[] : OkPacket>(
-			(resolve, reject) => {
-				if (!this.connection) {
-					this._error('未找到连接')
-					return reject(new ReferenceError('未找到连接'))
-				}
-				if (sql) {
-					this.connection.query(sql, (err, res) => {
-						if (err) {
-							this._error('数据库操作错误', err.sqlMessage)
-							reject(err)
-						} else {
-							res.fieldCount
-								? this._log(`数据库操作成功：${res.fieldCount}
+	query<T extends object = never>(sql: string) {
+		return new Promise<T extends never ? OkPacket : T[]>((resolve, reject) => {
+			if (!this.connection) {
+				this.toast.error('未找到连接')
+				return reject(new ReferenceError('未找到连接'))
+			}
+			if (sql) {
+				this.connection.query(sql, (err, res) => {
+					if (err) {
+						this.toast.error('数据库操作错误', err.sqlMessage)
+						reject(err)
+					} else {
+						'fieldCount' in res
+							? this.toast.log(`数据库操作成功：${res.fieldCount}
 								影响行数：${res.affectedRows}
 								修改行数：${res.changedRows}`)
-								: this._log(
-										`数据库查询成功：${
-											res.length
-												? `查找到${res.length}行
-												首行数据如下：
-												${Object.entries(res[0])
-													.map(val => `${val[0]}:\t${val[1]}`)
-													.join('\r')}`
-												: '未查找到数据'
-										}`,
-								  )
-							resolve(res)
-						}
-					})
-				} else {
-					this._error('未找到sql语句')
-					reject('未找到sql语句')
-				}
-			},
-		)
+							: this.toast.log(
+									`数据库查询成功：${
+										res.length
+											? `查找到${
+													res.length
+											  }行\r\n\t|首行数据如下：\r\n${Object.entries(res[0])
+													.map(val => `${val[0]}:\t|${val[1]}`)
+													.join('\r\n')}`
+											: '未查找到数据'
+									}`,
+							  )
+						resolve(res)
+					}
+				})
+			} else {
+				this.toast.error('未找到sql语句')
+				reject('未找到sql语句')
+			}
+		})
 	}
 
 	quit() {
 		return new Promise<void>((resolve, reject) => {
 			if (!this.connection) {
-				this._error('未找到连接')
+				this.toast.error('未找到连接')
 				return reject(new ReferenceError('未找到连接'))
 			}
 			this.connection.end(err => {
 				if (err) {
-					this._error('数据库断开失败', err.sqlMessage)
+					this.toast.error('数据库断开失败', err.sqlMessage)
 					reject(err)
 				} else {
-					this._log('数据库断开成功')
+					this.toast.log('数据库断开成功')
 					resolve()
 				}
 			})

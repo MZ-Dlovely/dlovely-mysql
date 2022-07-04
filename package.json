@@ -1,6 +1,6 @@
 {
 	"name": "dlovely-mysql",
-	"version": "2.1.2",
+	"version": "2.2.0",
 	"author": "dlovely 1556468030@qq.com",
 	"description": "connect mysql for dlovely",
 	"private": false,
@@ -10,7 +10,7 @@
 		"dlovely 1556468030@qq.com"
 	],
 	"repository": "",
-	"homepage": "https://github.com/MZ-Dlovely/dlovely-mysql",
+	"homepage": "https://github.com/MZ-Dlovely/dlovely-mysql/wiki",
 	"dependencies": {
 		"@types/mysql": "^2.15.21",
 		"mysql": "^2.18.1",

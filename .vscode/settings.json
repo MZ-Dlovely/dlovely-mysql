@@ -35,5 +35,6 @@
   },
   "fileheader.configObj": {
     "openFunctionParamsCheck": true // 默认开启
-  }
+  },
+  "files.autoSave": "afterDelay"
 }

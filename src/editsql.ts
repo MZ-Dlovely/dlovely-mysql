@@ -2,7 +2,7 @@
  * @Author: Dlovely
  * @Date: 2022-03-07 17:09:57
  * @LastEditors: Dlovely
- * @LastEditTime: 2022-06-16 17:20:09
+ * @LastEditTime: 2022-07-04 19:14:46
  * @Description: 编辑SQL语句
  * @FilePath: \mysql\src\editsql.ts
  * Copyright (c) 2022 by Dlovely, All Rights Reserved.
@@ -185,6 +185,7 @@ export class SQL<
 			return this as any
 		}
 	}
+	// TODO: 能合并表查询
 
 	/**
 	 * SELECT 表
@@ -216,6 +217,7 @@ export class SQL<
 		return this as any
 	}
 	// TODO: 能连续插入多组数据
+
 	/**
 	 * UPDATE 表
 	 * @param { Object } data 要更新的数据
