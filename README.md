@@ -20,6 +20,7 @@
   - [DELETE](#delete)
   - [UPDATE](#update)
   - [SELECT](#select)
+  - [ORDER BY](#order-by)
   - [WHERE](#where)
   - [GET](#get)
 
@@ -276,6 +277,30 @@ let select = sql.select(false, 'name', 'age')
 let select = sql.select(true, 'name')
 /* (value select.SQL)
  * SELECT DISTINCT name FROM my_tablename
+ */
+```
+
+#### ORDER BY
+
+- `keys`: 收集剩余参数作为要获取的列的集合
+  - 传入一般字符串时，如`name`，将作为顺序标志
+  - 传入以`&`开头的字符串时，如`'&age'`，将作为逆序标志
+
+```ts
+/* 以名称顺序显示 */
+let select = sql.select().order('name')
+/* (value select.SQL)
+ * SELECT * FROM my_tablename ORDER BY 'name' ASC
+ */
+/* 以年龄逆序显示 */
+let select = sql.select().order('&age')
+/* (value select.SQL)
+ * SELECT * FROM my_tablename ORDER BY 'age' DESC
+ */
+/* 以名称顺序显示同时以年龄逆序显示 */
+let select = sql.select().order('name'，'&age')
+/* (value select.SQL)
+ * SELECT * FROM my_tablename ORDER BY 'name' ASC, 'age' DESC
  */
 ```
 
