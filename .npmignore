@@ -6,3 +6,4 @@ package-lock.json
 tsconfig.json
 yarn.lock
 yarn-error.log
+pnpm-lock.yaml
