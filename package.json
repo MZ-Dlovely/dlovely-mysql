@@ -1,6 +1,6 @@
 {
 	"name": "dlovely-mysql",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"author": "dlovely 1556468030@qq.com",
 	"description": "connect mysql for dlovely",
 	"private": false,
@@ -23,8 +23,8 @@
 	},
 	"devDependencies": {},
 	"scripts": {},
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./lib/index.js",
+	"types": "./lib/index.d.ts",
 	"keywords": [
 		"typescript",
 		"javascript",
