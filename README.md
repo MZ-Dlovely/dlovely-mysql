@@ -20,6 +20,7 @@
   - [DELETE](#delete)
   - [UPDATE](#update)
   - [SELECT](#select)
+  - [ORDER BY](#order-by)
   - [WHERE](#where)
   - [GET](#get)
 
