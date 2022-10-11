@@ -119,7 +119,7 @@ function editData(data: SQLOptions['data'], type: 0 | 1) {
 	} else {
 		return Array.from(data)
 			.map(([key, val]) => `${key}=` + editOrString(val))
-			.join()
+			.join(', ')
 	}
 }
 
@@ -152,10 +152,10 @@ export class SQL<
 				const Order = order?.length
 					? ` ORDER BY ${order
 							.map(({ key, desc }) => `${key} ${desc ? 'DESC' : 'ASC'}`)
-							.join()}`
+							.join(', ')}`
 					: ''
-				return `SELECT ${Row} FROM ${this._tbname} ${
-					where ? `WHERE ${editWhere(where)}` : ''
+				return `SELECT ${Row} FROM ${this._tbname}${
+					where?.length ? ` WHERE ${editWhere(where)}` : ''
 				}${Order}`
 			case 1:
 				return `INSERT INTO ${this._tbname} ${editData(data, 1)}`
@@ -204,6 +204,7 @@ export class SQL<
 		this._options.row = { keys: new Set(keys.filter(v => v)), distinct }
 		return this as any
 	}
+
 	/**
 	 * INSERT 表
 	 * @param { Object } data 要插入的数据
@@ -230,6 +231,7 @@ export class SQL<
 		this._options.data = new Map(Object.entries(data || {}))
 		return this as any
 	}
+
 	/**
 	 * DELETE 表
 	 * @returns { SQL } SQL编辑器，接下来选择操作方式(where)
@@ -245,17 +247,18 @@ export class SQL<
 	 * @return { SQL } SQL编辑器，接下来选择操作方式(where、get)
 	 */
 	order(...keys: string[]): Pick<SQL, 'where' | 'get'> {
+		if (!this._options.order) this._options.order = []
 		keys.forEach(str => {
 			const key = { key: '', desc: false }
-			if (str.charAt(0) === '+') key.key = str.replace('+', '')
-			else if (str.charAt(0) === '-') {
-				key.key = str.replace('-', '')
+			if (str.charAt(0) === '&') {
+				key.key = str.replace('&', '')
 				key.desc = true
 			} else key.key = str
 			this._options.order.push(key)
 		})
 		return this as any
 	}
+
 	/**
 	 * 传递 WHERE 定位
 	 * @param { Object } data 传入定位方式,如果有多个串联条件，键名需要添加&，值可以传入number、string或特定对象，详见示例
