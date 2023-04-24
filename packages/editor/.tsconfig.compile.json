@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "target": "es2016",
+    "module": "commonjs",
+    "declaration": false,
+    "outDir": "./lib",
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node"
+    ],
+    "paths": {}
+  },
+  "include": [
+    "./src/**/*",
+    "../global.d.ts"
+  ]
+}

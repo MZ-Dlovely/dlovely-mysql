@@ -1,0 +1,27 @@
+{
+  "name": "dlovely-mysql",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "pnpm build:compile && pnpm build:types",
+    "build:compile": "tsc --project ./.tsconfig.compile.json",
+    "build:types": "tsc --project ./.tsconfig.types.json"
+  },
+  "keywords": [],
+  "authors": [
+    "1556468030@qq.com"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@dlovely-mysql/editor": "workspace:^",
+    "@dlovely-mysql/shared": "workspace:^",
+    "mysql2": "^3.2.3"
+  },
+  "peerDependencies": {
+    "@dlovely-mysql/editor": "workspace:^",
+    "@dlovely-mysql/shared": "workspace:^",
+    "mysql2": "^3.2.3"
+  }
+}
