@@ -7,6 +7,24 @@ export type TableColumn =
   | CharColumn
   | EnumColumn
 
+export type ColumnType<Column extends TableColumn> = Column extends NumberColumn
+  ? number
+  : Column extends StringColumn
+  ? string
+  : Column extends DateColumn
+  ? Date
+  : Column extends JsonColumn
+  ? Column['default'] extends `{${string}}`
+    ? Record<string, any>
+    : Column['default'] extends `[${string}]`
+    ? Array<any>
+    : any
+  : Column extends CharColumn
+  ? string
+  : Column extends EnumColumn
+  ? string
+  : any
+
 export interface BaseColumn {
   readonly name: string
   readonly not_null: boolean

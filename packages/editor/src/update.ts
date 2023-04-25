@@ -1,4 +1,4 @@
-import { hasOwn } from '@dlovely-mysql/shared'
+import { hasOwn } from '@mysql-manager/shared'
 import { createSql } from './virtual-sql'
 import type { Sql, SqlWithParams } from './virtual-sql'
 import { type Where, formatWhereOptions } from './where'

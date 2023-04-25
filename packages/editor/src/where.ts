@@ -1,4 +1,4 @@
-import { compareNumber, completeQD, isArray } from '@dlovely-mysql/shared'
+import { compareNumber, completeQD, isArray } from '@mysql-manager/shared'
 import { createSql, formatSql, isSql } from './virtual-sql'
 import type { Sql, SqlWithParams } from './virtual-sql'
 

@@ -1,7 +1,7 @@
 import type { ConnectionOptions } from 'mysql2/typings/mysql/lib/Connection'
 import type { PoolOptions } from 'mysql2/typings/mysql/lib/Pool'
 import { MysqlInstace, MysqlServer, MysqlPool } from './mysql'
-import { TableColumns } from '@dlovely-mysql/shared'
+import { TableColumns } from '@mysql-manager/shared'
 import { Table } from './table'
 
 export type DataBaseOptions = Omit<

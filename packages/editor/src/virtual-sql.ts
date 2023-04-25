@@ -1,4 +1,4 @@
-import { isObject } from '@dlovely-mysql/shared'
+import { isObject } from '@mysql-manager/shared'
 
 export interface SqlWithParams {
   sql: string

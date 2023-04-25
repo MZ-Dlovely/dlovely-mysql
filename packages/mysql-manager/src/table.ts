@@ -4,19 +4,19 @@ import type {
   InsertColumns,
   UpdateColumns,
   SelectColumnsPick,
-} from '@dlovely-mysql/shared'
+} from '@mysql-manager/shared'
 import {
   formatInsert,
   formatDelete,
   formatUpdate,
   formatSelect,
-} from '@dlovely-mysql/editor'
+} from '@mysql-manager/editor'
 import type {
   Delete,
   Update,
   Select,
   SqlWithParams,
-} from '@dlovely-mysql/editor'
+} from '@mysql-manager/editor'
 import { DataBase } from './database'
 import type { OkPacket } from 'mysql2'
 

@@ -1,4 +1,4 @@
-import type { TableColumn, TableColumns } from './columns'
+import type { TableColumn, TableColumns, ColumnType } from './columns'
 import type { MergeRecord } from './type-utils'
 
 export type InsertColumns<Columns extends TableColumns> = MergeRecord<
@@ -7,18 +7,22 @@ export type InsertColumns<Columns extends TableColumns> = MergeRecord<
       Key,
       never,
       IsRequire<Key, Key['name'], never>
-    >]: Key['type']
+    >]: ColumnType<Key>
   } & {
     [Key in Columns[number] as IsReadOnly<
       Key,
       never,
       IsRequire<Key, never, Key['name']>
-    >]?: Key['type']
+    >]?: ColumnType<Key>
   }
 >
 
 export type UpdateColumns<Columns extends TableColumns> = MergeRecord<{
-  [Key in Columns[number] as IsReadOnly<Key, never, Key['name']>]?: Key['type']
+  [Key in Columns[number] as IsReadOnly<
+    Key,
+    never,
+    Key['name']
+  >]?: ColumnType<Key>
 }>
 
 export type SelectColumns<Columns extends TableColumns> = MergeRecord<
@@ -27,25 +31,25 @@ export type SelectColumns<Columns extends TableColumns> = MergeRecord<
       Key,
       IsExist<Key, Key['name'], never>,
       never
-    >]: Key['type']
+    >]: ColumnType<Key>
   } & {
     readonly [Key in Columns[number] as IsReadOnly<
       Key,
       IsExist<Key, never, Key['name']>,
       never
-    >]?: Key['type']
+    >]?: ColumnType<Key>
   } & {
     [Key in Columns[number] as IsReadOnly<
       Key,
       never,
       IsExist<Key, Key['name'], never>
-    >]: Key['type']
+    >]: ColumnType<Key>
   } & {
     [Key in Columns[number] as IsReadOnly<
       Key,
       never,
       IsExist<Key, never, Key['name']>
-    >]?: Key['type']
+    >]?: ColumnType<Key>
   }
 >
 export type SelectColumnsPick<

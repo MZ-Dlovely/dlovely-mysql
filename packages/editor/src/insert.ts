@@ -1,4 +1,4 @@
-import { completeQD, hasOwn } from '@dlovely-mysql/shared'
+import { completeQD, hasOwn } from '@mysql-manager/shared'
 import type { SqlWithParams } from './virtual-sql'
 
 export namespace Insert {

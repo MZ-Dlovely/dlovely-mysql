@@ -1,1 +1,1 @@
-export default '@dlovely-mysql/manager'
+export default '@mysql-manager/manager'

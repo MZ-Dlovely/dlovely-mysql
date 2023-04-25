@@ -1,5 +1,5 @@
 {
-  "name": "dlovely-mysql",
+  "name": "mysql-manager",
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
@@ -15,13 +15,13 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@dlovely-mysql/editor": "workspace:^",
-    "@dlovely-mysql/shared": "workspace:^",
+    "@mysql-manager/editor": "workspace:^",
+    "@mysql-manager/shared": "workspace:^",
     "mysql2": "^3.2.3"
   },
   "peerDependencies": {
-    "@dlovely-mysql/editor": "workspace:^",
-    "@dlovely-mysql/shared": "workspace:^",
+    "@mysql-manager/editor": "workspace:^",
+    "@mysql-manager/shared": "workspace:^",
     "mysql2": "^3.2.3"
   }
 }

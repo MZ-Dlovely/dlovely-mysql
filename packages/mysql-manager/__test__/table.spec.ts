@@ -11,30 +11,30 @@ describe('Table', () => {
   const account_columns = [
     {
       name: 'id',
-      read_only: true,
+      readonly: true,
       not_null: true,
-      has_default: false,
+      has_defa: false,
       type: 'int',
     },
     {
       name: 'create_time',
-      read_only: true,
+      readonly: true,
       not_null: true,
-      has_default: true,
+      has_defa: true,
       type: 'timestamp',
     },
     {
       name: 'update_time',
-      read_only: true,
+      readonly: true,
       not_null: true,
-      has_default: true,
+      has_defa: true,
       type: 'timestamp',
     },
     {
       name: 'reviser',
-      read_only: false,
+      readonly: false,
       not_null: false,
-      has_default: false,
+      has_defa: false,
       type: 'int',
     },
   ] as const
